@@ -1,0 +1,521 @@
+import random
+import sys
+import time
+
+dwarf_hp = 60
+dwarf_atk = 30
+dwarf_def = 10
+dwarf_name = "Angry Dwarf"
+dwarf_location = "The Dwarf's Mine"
+
+grosgil_son_hp = 80
+grosgil_son_atk = 40
+grosgil_son_def = 20
+grosgil_son_name = "Grosgil's Son"
+grosgil_son_location = "Grosgil's Foyer"
+
+dragon_hp = 100
+dragon_atk = 80
+dragon_def = 0
+dragon_name = "Three-Headed Dragon"
+dragon_location = "The Dragon's Lair"
+
+magician_hp = 120
+magician_atk = 80
+magician_def = 20
+magician_name = "The Dark Magician"
+magician_location = "The Magician's Pentacle"
+
+nightmare_hp = 140
+nightmare_atk = 90
+nightmare_def = 30
+nightmare_name = "Nightmare"
+nightmare_location = "The Nightmare's Abode"
+
+ogre_hp = 160
+ogre_atk = 90
+ogre_def = 50
+ogre_name = "Ice Ogre"
+ogre_location = "The Ogre's Forest"
+
+biden_hp = 180
+biden_atk = 100
+biden_def = 60
+biden_name = "Joe Biden"
+biden_location = "Joe Biden's Cloud Temple"
+
+zombie_hp = 200
+zombie_atk = 110
+zombie_def = 70
+zombie_name = "Undead Zombie"
+zombie_location = "Zombie Land"
+
+priestess_hp = 250
+priestess_atk = 130
+priestess_def = 70
+priestess_name = "Entombed Priestess"
+priestess_location = "The Priestess's Cave"
+
+grosgil_hp = 500
+grosgil_atk = 150
+grosgil_def = 150
+grosgil_name = "Overlord Grosgil"
+grosgil_location = "Grosgil's Final Resting Place"
+
+
+print("Which hero would you like to be?" + "\n")
+time.sleep(2)
+print("Reina, the aggressive mage?" + "\n")
+time.sleep(1)
+print("Reina starts with 90 hp, 50 attack, and 20 defense." + "\n")
+time.sleep(2)
+print("Aidan, the defensive knight?" + "\n")
+time.sleep(1)
+print("Aidan starts with 110 hp, 25 attack, and 40 defense." + "\n")
+time.sleep(2)
+print("Isaac, the balanced warrior?" + "\n")
+time.sleep(1)
+print("Isaac starts with 100 hp, 35 attack, and 35 defense." + "\n")
+time.sleep(2)
+hero_choice = input("Who will it be? Reina, Aidan, or Isaac? >> ")
+
+while hero_choice != "Reina" or "Aidan" or "Isaac":
+    if hero_choice == "Reina":
+        max_hp = 90
+        hp = max_hp
+        attack = 50
+        defense = 20
+        break
+
+    elif hero_choice == "Aidan":
+        max_hp = 110
+        hp = max_hp
+        attack = 25
+        defense = 40
+        break
+
+    elif hero_choice == "Isaac":
+        max_hp = 100
+        hp = max_hp
+        attack = 35
+        defense = 35
+        break
+
+    else:
+        print("\n" + "Please provide an appropriate response!")
+        hero_choice = input("Who will it be? Reina, Aidan, or Isaac? >> ")
+        continue
+
+print("\n" + "You are ready to begin your adventure. The enemies you face in the dungeon" + "\n"
+      + "will become stronger as you move northeast, so try to work up to them as you" + "\n"
+      + "strengthen your hero by defeating weaker enemies. Good luck!" + "\n")
+
+entrance_decision = input("Would you like to enter the mysterious dungeon? (Yes/No) >> ")
+
+while entrance_decision != "Yes" or "No":
+
+    if entrance_decision == "Yes":
+        print("Welcome to The Almighty Grosgil's Domain! The only way you may leave is through death!")
+        break
+
+    elif entrance_decision == "No":
+        print("You live to fight another day.")
+        exit()
+
+    else:
+        entrance_decision = input("Make up your mind! (Yes/No) >> ")
+        continue
+
+
+def enemy_encounter(max_hp, hp, attack, defense, enemy_hp, enemy_attack, enemy_defense, enemy_name, enemy_location):
+    print("\n" + "Welcome to " + enemy_location + ". A deformed being approaches you.")
+    print("This is " + enemy_name + ", and he is ready for battle. Prepare yourself!")
+    print("You start with " + str(hp) + " hp.")
+    print(enemy_name + " starts with " + str(enemy_hp) + " hp.")
+
+    while hp > 0 and enemy_hp > 0:
+
+        attack_type = input("\n" + "Which attack would you like to begin with? (1: Basic  2: Charged) >> ")
+
+        if attack_type == "1":
+            damage_dealt = random.randint(attack - 5, attack + 5) - random.randint(grosgil_son_def - 5, grosgil_son_def + 5)
+            damage_taken = random.randint(grosgil_son_atk - 5, grosgil_son_atk + 5) - random.randint(defense - 5, defense + 5)
+
+            if damage_dealt > 0:
+                enemy_hp -= damage_dealt
+                print(enemy_name + " has " + str(enemy_hp) + " hp remaining.")
+
+            else:
+                enemy_hp = enemy_hp
+                print(enemy_name + " has " + str(enemy_hp) + " hp remaining.")
+
+            if damage_taken > 0:
+                hp -= damage_taken
+                print("You have " + str(hp) + " hp remaining.")
+
+            else:
+                hp = hp
+                print("You have " + str(hp) + " hp remaining.")
+
+            if hp <= 0:
+                print("You have been slain. Better luck next time.")
+                sys.exit()
+
+            elif enemy_hp <= 0:
+                print("Congratulations! You have defeated " + enemy_name + "!")
+                break
+
+        elif attack_type == "2":
+            damage_dealt2 = random.randint(attack - 7, attack + 8)- random.randint(enemy_defense - 5, enemy_defense + 5)
+            damage_taken2 = random.randint(enemy_attack - 5, enemy_attack + 5) - random.randint(defense - 5, defense + 5)
+
+            if damage_dealt2 > 0:
+                enemy_hp -= damage_dealt2
+                print(enemy_name + " has " + str(enemy_hp) + " hp remaining.")
+
+            else:
+                enemy_hp = enemy_hp
+                print(enemy_name + " has " + str(enemy_hp) + " hp remaining.")
+
+            if damage_taken2 > 0:
+                hp -= damage_taken2
+                print("You have " + str(hp) + " hp.")
+
+            else:
+                hp = hp
+                print("You have " + str(hp) + " hp.")
+
+            if hp <= 0:
+                print("You have been slain. Better luck next time.")
+                sys.exit()
+
+            elif enemy_hp <= 0:
+                print("Congratulations! You have defeated Grosgil's son!")
+                break
+
+        else:
+            attack_type = input("Please enter a valid answer! >> ")
+
+    if enemy_name == "Angry Dwarf":
+        max_hp += 1
+        attack += 1
+        defense += 1
+
+    elif enemy_name == "Grosgil's Son":
+        max_hp += 1
+        attack += 1
+        defense += 1
+
+    elif enemy_name == "Three-Headed Dragon":
+        max_hp += 1
+        attack += 1
+        defense += 1
+
+    elif enemy_name == "Dark Magician":
+        max_hp += 2
+        attack += 2
+        defense += 2
+
+    elif enemy_name == "Nightmare":
+        max_hp += 2
+        attack += 2
+        defense += 2
+
+    elif enemy_name == "Ice Ogre":
+        max_hp += 2
+        attack += 2
+        defense += 2
+
+    elif enemy_name == "Joe Biden":
+        max_hp += 3
+        attack += 3
+        defense += 3
+
+    elif enemy_name == "Undead Zombie":
+        max_hp += 3
+        attack += 3
+        defense += 3
+
+    elif enemy_name == "Entombed Priestess":
+        max_hp += 3
+        attack += 3
+        defense += 3
+
+    hp = max_hp
+    print("You now have " + str(max_hp) + " max hp, " + str(attack) + " attack, and " + str(defense) + " defense.")
+
+
+def room1(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, dwarf_hp, dwarf_atk, dwarf_def, dwarf_name, dwarf_location)
+
+    max_hp += 1
+    hp = max_hp
+    attack += 1
+    defense += 1
+
+    room1_decision = input("Would you like to (0) stay in this room (1) go to the room to the north or" + "\n"
+                           "(2) go to the room to the east? >> ")
+
+    while room1_decision != "0" or "1" or "2":
+        if room1_decision == "0":
+            room1(max_hp, hp, attack, defense)
+
+        elif room1_decision == "1":
+            room4(max_hp, hp, attack, defense)
+
+        elif room1_decision == "2":
+            room2(max_hp, hp, attack, defense)
+
+        else:
+            room1_decision = input("\n" + "Would you like to (0) stay in this room (1) go to the room to the north or" +
+                                   "\n" + "(2) go to the room to the east? >> ")
+
+
+def room2(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, grosgil_son_hp, grosgil_son_atk, grosgil_son_def, grosgil_son_name,
+                    grosgil_son_location)
+
+    max_hp += 1
+    hp = max_hp
+    attack += 1
+    defense += 1
+
+    room2_decision = input("Would you like to (0) stay in this room (1) go to the room to the north" + "\n"
+                           "(2) go to the room to the west or (3) go to the room to the east? >> ")
+
+    while room2_decision != "0" or "1" or "2" or "3":
+        if room2_decision == "0":
+            room2(max_hp, hp, attack, defense)
+
+        elif room2_decision == "1":
+            room5(max_hp, hp, attack, defense)
+
+        elif room2_decision == "2":
+            room1(max_hp, hp, attack, defense)
+
+        elif room2_decision == "3":
+            room3(max_hp, hp, attack, defense)
+
+        else:
+            room2_decision = input("\n" + "Would you like to (0) stay in this room (1) go to the room to the north" +
+                                   "\n" + "(2) go to the room to the west or (3) go to the room to the east? >> ")
+
+
+def room3(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, dragon_hp, dragon_atk, dragon_def, dragon_name, dragon_location)
+    room3_decision = input("Would you like to (0) stay in this room " + "\n"
+                           "(1) go to the room to the north or (2) go to the room to the west? >> ")
+
+    max_hp += 1
+    hp = max_hp
+    attack += 1
+    defense += 1
+
+    while room3_decision != "0" or "1" or "2":
+
+        if room3_decision == "0":
+            room3(max_hp, hp, attack, defense)
+
+        elif room3_decision == "1":
+            room6(max_hp, hp, attack, defense)
+
+        elif room3_decision == "2":
+            room2(max_hp, hp, attack, defense)
+
+        else:
+            room3_decision = input("\n" + "Would you like to (0) stay in this room (1) go to the room to " +
+                                   "the north or (2) go to the room to the west? >> ")
+
+
+def room4(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, magician_hp, magician_atk, magician_def, magician_name,
+                    magician_location)
+
+    max_hp += 2
+    hp = max_hp
+    attack += 2
+    defense += 2
+
+    room4_decision = input("Would you like to (0) stay in this room (1) go to the room to the north " + "\n"
+                           "(2) go to the room to the east or (3) go to the room to the south? >> ")
+
+    while room4_decision != "0" or "1" or "2" or "3":
+
+        if room4_decision == "0":
+            room4(max_hp, hp, attack, defense)
+
+        elif room4_decision == "1":
+            room7(max_hp, hp, attack, defense)
+
+        elif room4_decision == "2":
+            room5(max_hp, hp, attack, defense)
+
+        elif room4_decision == "3":
+            room1(max_hp, hp, attack, defense)
+
+        else:
+            input("Would you like to (0) stay in this room (1) go to the room to the north " + "\n"
+                  "(2) go to the room to the east or (3) go to the room to the south? >> ")
+
+
+def room5(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, nightmare_hp, nightmare_atk, nightmare_def, nightmare_name,
+                    nightmare_location)
+
+    max_hp += 2
+    hp = max_hp
+    attack += 2
+    defense += 2
+
+    room5_decision = input("Would you like to (0) stay in this room (1) go to the room to the north " + "/n" +
+                           "(2) go to the room to the east" +
+                           "\n" + "(3) go to the room to the south or (4) go to the room to the west? >> ")
+
+    while room5_decision != "0" or "1" or "2" or "3" or "4":
+
+        if room5_decision == "0":
+            room5(max_hp, hp, attack, defense)
+
+        elif room5_decision == "1":
+            room8(max_hp, hp, attack, defense)
+
+        elif room5_decision == "2":
+            room6(max_hp, hp, attack, defense)
+
+        elif room5_decision == "3":
+            room2(max_hp, hp, attack, defense)
+
+        elif room5_decision == "4":
+            room4(max_hp, hp, attack, defense)
+
+        else:
+            input("Would you like to (0) stay in this room (1) go to the room to the north " + "/n"
+                  "(2) go to the room to the east" +
+                  "\n" + "(3) go to the room to the south or (4) go to the room to the west? >> ")
+
+
+def room6(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, ogre_hp, ogre_atk, ogre_def, ogre_name, ogre_location)
+
+    max_hp += 2
+    hp = max_hp
+    attack += 2
+    defense += 2
+
+    room6_decision = input("Would you like to (0) stay in this room (1) go to the room to the north" + "\n" +
+                           "(2) go to the room to the west or (3) go to the room to the south? >> ")
+
+    while room6_decision != "0" or "1" or "2" or "3":
+
+        if room6_decision == "0":
+            room6(max_hp, hp, attack, defense)
+
+        elif room6_decision == "1":
+            room9(max_hp, hp, attack, defense)
+
+        elif room6_decision == "2":
+            room5(max_hp, hp, attack, defense)
+
+        elif room6_decision == "3":
+            room3(max_hp, hp, attack, defense)
+
+        else:
+           input("Would you like to (0) stay in this room (1) go to the room to the north" + "\n" +
+                 "(2) go to the room to the west or (3) go to the room to the south? >> ")
+
+
+def room7(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, biden_hp, biden_atk, biden_def, biden_name, biden_location)
+
+    max_hp += 3
+    hp = max_hp
+    attack += 3
+    defense += 3
+
+    room7_decision = input("Would you like to (0) stay in this room (1) go to the room to the east or" + "\n" +
+                           "(2) go to the room to the south? >> ")
+
+    while room7_decision != "0" or "1" or "2":
+
+        if room7_decision == "0":
+            room7(max_hp, hp, attack, defense)
+
+        elif room7_decision == "1":
+            room8(max_hp, hp, attack, defense)
+
+        elif room7_decision == "2":
+            room4(max_hp, hp, attack, defense)
+
+        else:
+            input("Would you like to (0) stay in this room (1) go to the room to the east or" + "\n" +
+                 "(2) go to the room to the south? >> ")
+
+
+def room8(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, zombie_hp, zombie_atk, zombie_def, zombie_name, zombie_location)
+
+    max_hp += 3
+    hp = max_hp
+    attack += 3
+    defense += 3
+
+    room8_decision = input("Would you like to (0) stay in this room (1) go to the room to the west" + "\n"
+                           "(2) go to the room to the south or (3) go to the room to the east? >> ")
+
+    while room8_decision != "0" or "1" or "2" or "3":
+
+        if room8_decision == "0":
+            room8(max_hp, hp, attack, defense)
+
+        elif room8_decision == "1":
+            room7(max_hp, hp, attack, defense)
+
+        elif room8_decision == "2":
+            room5(max_hp, hp, attack, defense)
+
+        elif room8_decision == "3":
+            room9(max_hp, hp, attack, defense)
+
+        else:
+           input("Would you like to (0) stay in this room (1) go to the room to the west" + "\n"
+                 "(2) go to the room to the south or (3) go to the room to the east? >> ")
+
+def room9(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, priestess_hp, priestess_atk, priestess_def, priestess_name,
+                    priestess_location)
+
+    max_hp += 3
+    hp = max_hp
+    attack += 3
+    defense += 3
+
+    room9_decision = input("Would you like to (0) stay in this room" + "\n" +
+                           "(1) go to the room to the west (2) go to the room to the south" + "\n" +
+                           "or (3) go to the room to the north to face the final boss, Grosgil himself?! >> ")
+
+    while room9_decision != "0" or "1" or "2":
+
+        if room9_decision == "0":
+            room9(max_hp, hp, attack, defense)
+
+        elif room9_decision == "1":
+            room8(max_hp, hp, attack, defense)
+
+        elif room9_decision == "2":
+            room6(max_hp, hp, attack, defense)
+
+        elif room9_decision == "3":
+            room10(max_hp, hp, attack, defense)
+
+        else:
+           input("Would you like to (0) stay in this room" + "\n" +
+                 "(1) go to the room to the west (2) go to the room to the south" + "\n" +
+                 "or (3) go to the room to the north to face the final boss, Grosgil himself?! >> ")
+
+
+def room10(max_hp, hp, attack, defense):
+    enemy_encounter(max_hp, hp, attack, defense, grosgil_hp, grosgil_atk, grosgil_def, grosgil_name, grosgil_location)
+    print("Congratulations, you have defeated the almighty Grosgil. The bards shall tell your legend forever!")
+    sys.exit("Thanks for playing!")
+
+room2(max_hp, hp, attack, defense)
